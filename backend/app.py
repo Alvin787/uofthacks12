@@ -1,7 +1,9 @@
 import os
 import requests
+import logging
 from flask import Flask, request, jsonify
 from dotenv import load_dotenv
+from flask_cors import CORS
 
 # Load environment variables from .env file
 load_dotenv()
@@ -13,6 +15,7 @@ if not TOKEN:
     raise ValueError("GITHUB_TOKEN is not set in the .env file!")
 
 app = Flask(__name__)
+CORS(app)
 
 # GitHub API URL
 API_URL = "https://api.github.com/graphql"
@@ -23,7 +26,10 @@ HEADERS = {
     "Content-Type": "application/json"
 }
 
+logging.basicConfig(level=logging.DEBUG)
 
+
+@app.route('/vulnerabilities/<package_name>/<ecosystem>', methods=['GET'])
 def fetch_vulnerabilities(package_name, ecosystem):
     """
     Fetch vulnerabilities for a given package and ecosystem from GitHub API.
