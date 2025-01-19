@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 import logo from '../assets/logo.png';
 
 interface HeaderSectionProps {
-  onScan: (packageName: string) => void;
+  onScan: (packageName: string, environmentName: string) => void;
 }
 
 const PackageTextBox: React.FC<HeaderSectionProps> = ({ onScan }) => {
   const [packageName, setPackageName] = useState('');
+  const [ecosystem, setEcosystem] = useState<string>("");
 
   const handleScan = () => {
     if (packageName.trim()) {
-      onScan(packageName);
+      onScan(packageName, ecosystem);
     }
   };
 
@@ -66,9 +67,21 @@ const PackageTextBox: React.FC<HeaderSectionProps> = ({ onScan }) => {
             Scan now
           </button>
         </div>
+        <div className="-mt-3 flex justify-start">
+          <input
+            id="additionalInput"
+            type="text"
+            className="w-80 border border-gray-300 p-1 rounded text-sm border-gray-300 
+                     focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+                     transition-all duration-200"
+            value={ecosystem}
+            onChange={(e) => setEcosystem(e.target.value)}
+            placeholder="Enter your package's environment (ex. PIP, NPM)"
+          />
+        </div>
 
         {/* Free Badge */}
-        <div className="flex items-center justify-center gap-2 text-sm text-gray-600">
+        <div className="flex items-center justify-center gap-2 text-sm text-gray-600 mt-4">
           <svg 
             className="w-4 h-4 text-blue-600" 
             viewBox="0 0 20 20" 

@@ -8,7 +8,6 @@ import ScannerResults from "./components/scannerResults";
 import AlternativePackagesTable from "./components/aiRecomendation";
 import OpenAI from "openai";
 
-
 function FlaskMessages() {
   const [vulnerabilityData, setVulnerabilityData] = useState(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -16,12 +15,13 @@ function FlaskMessages() {
   const [aiAdvice, setAiAdvice] = useState<string | null>(null);
 
   // Handle form submission
-  const handleSubmit = (packageName: string) => {
+  const handleSubmit = (packageName: string, environmentName: string) => {
+    console.log(environmentName)
     setLoading(true);
     setError(null);
 
     // Build the dynamic API URL
-    const url = `http://127.0.0.1:5000/vulnerabilities/${packageName}/PIP`;
+    const url = `http://127.0.0.1:5000/vulnerabilities/${packageName}/${environmentName}`;
 
     console.log(url);
 
