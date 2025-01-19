@@ -5,11 +5,15 @@ import "./index.css";
 import "./App.css"
 import PackageTextBox from "./components/packageTextBox";
 import ScannerResults from "./components/scannerResults";
+import AlternativesTable from "./components/aiRecomendation";
+
+import OpenAI from "openai";
 
 function FlaskMessages() {
   const [vulnerabilityData, setVulnerabilityData] = useState(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [aiAdvice, setAiAdvice] = useState<string | null>(null);
 
   // Handle form submission
   const handleSubmit = (packageName: string) => {
@@ -28,11 +32,28 @@ function FlaskMessages() {
         }
         return res.json();
       })
-      .then((data) => {
+      .then(async (data) => {
         console.log("API Response:", data); // Check the structure here
         setVulnerabilityData(data);
-        // setVulnerabilityData(data[0]?.severity);
+
+        const aiResponse = (await openai.chat.completions.create({
+          model: "gpt-4o-mini",
+          messages: [
+            {
+              role: "system",
+              content:
+                "You will provide alternatives to the provided programming package in a short, concise list.",
+            },
+            {
+              role: "user",
+              content: packageName,
+            },
+          ],
+        })).choices[0].message.content;
+
+        setAiAdvice(aiResponse);
         setLoading(false);
+        console.log("AI RESPONSE", aiResponse);
       })
       .catch((err) => {
         setError(err.message);
@@ -47,7 +68,10 @@ function FlaskMessages() {
         {loading && <p className="text-center">Loading...</p>}
         {error && <p className="text-center text-red-500">Error: {error}</p>}
         {!loading && !error && vulnerabilityData && (
+          <div>
           <ScannerResults data={vulnerabilityData} />
+          <AlternativesTable alternatives={aiAdvice} />
+          </div>
         )}
       </div>
     </div>
