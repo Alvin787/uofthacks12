@@ -69,7 +69,7 @@ function FlaskMessages() {
     <div className="container flex flex-col items-center justify-center min-h-screen p-4">
       <PackageTextBox onScan={handleSubmit} />
       <div className="results w-full mt-6">
-        {loading && <p className="text-center">Loading...</p>}
+        {loading && <p className="text-center text-purple-600">LOADING... First request takes ~15sec due to free tier back-end deployment sleeping due to inactivity</p>}
         {error && <p className="text-center text-red-500">Error: {error}</p>}
         {!loading && !error && vulnerabilityData && vulnerabilityData[0] && (
           <ScannerResults data={vulnerabilityData} />
