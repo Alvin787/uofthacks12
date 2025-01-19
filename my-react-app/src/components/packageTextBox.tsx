@@ -23,17 +23,17 @@ const PackageTextBox: React.FC<HeaderSectionProps> = ({ onScan }) => {
     <div className="w-full max-w-4xl mx-auto bg-white px-6 py-8">
       {/* Title Section */}
       <div className="text-center space-y-4 mb-12">
-        <h1 className="text-4xl font-bold text-gray-900 tracking-tight">
+        <h1 className="text-4xl font-bold text-gray-900 tracking-tight text-left">
           WELCOME TO
         </h1>
-        <h2 className="text-3xl font-bold text-gray-900 tracking-tight">
-          API VULNERABILITY CHECKER
+        <h2 className="text-6xl font-bold text-gray-900 tracking-tight text-left pb-4">
+          <span className="text-red-600">VUL</span>SCANNER
         </h2>
-        <p className="text-lg text-blue-600 mt-4">
+        <p className="text-lg font-bold text-blue-600 mt-4">
           Your APIs. Your Security. Your Peace of Mind.
         </p>
         <p className="text-gray-600 mt-4 max-w-2xl mx-auto">
-          Not sure if your APIs are safe? Check your API security now with (name),
+          Not sure if your APIs are safe? Check your API security now with VULSCANNER,
           where safety meets simplicity
         </p>
       </div>

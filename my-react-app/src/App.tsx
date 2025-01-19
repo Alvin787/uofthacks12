@@ -30,7 +30,8 @@ function FlaskMessages() {
       })
       .then((data) => {
         console.log("API Response:", data); // Check the structure here
-        setVulnerabilityData(data[0]?.severity);
+        setVulnerabilityData(data);
+        // setVulnerabilityData(data[0]?.severity);
         setLoading(false);
       })
       .catch((err) => {
@@ -42,7 +43,7 @@ function FlaskMessages() {
   return (
     <div className="container flex flex-col items-center justify-center min-h-screen p-4">
       <PackageTextBox onScan={handleSubmit} />
-      <div className="results w-full max-w-4xl mt-6">
+      <div className="results w-full  mt-6">
         {loading && <p className="text-center">Loading...</p>}
         {error && <p className="text-center text-red-500">Error: {error}</p>}
         {!loading && !error && vulnerabilityData && (

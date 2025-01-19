@@ -1,5 +1,11 @@
 import React from 'react';
 
+interface Vulnerability {
+  severity: string;
+  summary: string;
+  vulnerable_version_range: string;
+}
+
 interface VulnerabilityData {
   vulnerability: string;
   severity: string;
@@ -14,21 +20,52 @@ interface ChartSegment {
 }
 
 interface ScannerResultsProps {
-  data?: {
-    vulnerabilities: VulnerabilityData[];
-    severityLevels: ChartSegment[];
-    totalValue: number;
-  };
+  data: Vulnerability[];
 }
 
 const ScannerResults: React.FC<ScannerResultsProps> = ({ data }) => {
-  // Use empty arrays and a default total value if `data` is undefined
-  const vulnerabilities = data?.vulnerabilities || [];
-  const severityLevels = data?.severityLevels || [];
-  const totalValue = data?.totalValue || 0;
+  // Process the vulnerabilities to count severity levels
+  const severityCounts = data.reduce((acc, curr) => {
+    acc[curr.severity] = (acc[curr.severity] || 0) + 1;
+    return acc;
+  }, {} as Record<string, number>);
+
+  // Calculate percentages for each severity level
+  const total = data.length;
+  const severityLevels: ChartSegment[] = [
+    {
+      label: 'Critical',
+      color: '#FF6B6B',
+      value: ((severityCounts['CRITICAL'] || 0) / total) * 100
+    },
+    {
+      label: 'High',
+      color: '#FFA94D',
+      value: ((severityCounts['HIGH'] || 0) / total) * 100
+    },
+    {
+      label: 'Medium',
+      color: '#B197FC',
+      value: ((severityCounts['MODERATE'] || 0) / total) * 100
+    },
+    {
+      label: 'Low',
+      color: '#63E6BE',
+      value: ((severityCounts['LOW'] || 0) / total) * 100
+    }
+  ];
+
+  // Transform vulnerabilities for the table
+  const vulnerabilities: VulnerabilityData[] = data.map(v => ({
+    vulnerability: v.summary,
+    severity: v.severity,
+    impact: `Affects versions ${v.vulnerable_version_range}`,
+    recommendations: `Update to a version ${v.vulnerable_version_range.includes('<') ? 
+      'higher than' : 'outside of'} ${v.vulnerable_version_range}`
+  }));
 
   const calculateStrokeDasharray = (value: number) => {
-    const circumference = 2 * Math.PI * 40; // radius is 40
+    const circumference = 2 * Math.PI * 40;
     return `${(value / 100) * circumference} ${circumference}`;
   };
 
@@ -89,7 +126,7 @@ const ScannerResults: React.FC<ScannerResultsProps> = ({ data }) => {
                     dy=".3em"
                     className="text-3xl font-bold"
                   >
-                    {totalValue}
+                    {total}
                   </text>
                 </g>
               </svg>
@@ -102,7 +139,9 @@ const ScannerResults: React.FC<ScannerResultsProps> = ({ data }) => {
                       className="w-3 h-3 rounded-full" 
                       style={{ backgroundColor: segment.color }}
                     />
-                    <span className="text-sm text-gray-600">{segment.label}</span>
+                    <span className="text-sm text-gray-600">
+                      {segment.label} ({severityCounts[segment.label.toUpperCase()] || 0})
+                    </span>
                   </div>
                 ))}
               </div>
@@ -114,46 +153,40 @@ const ScannerResults: React.FC<ScannerResultsProps> = ({ data }) => {
         <div className="bg-white rounded-lg shadow-md p-6">
           <div className="space-y-6">
             <h3 className="text-lg font-semibold text-gray-900">Vulnerability Summary</h3>
-            {vulnerabilities.length > 0 ? (
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead>
-                    <tr className="border-b border-gray-200">
-                      <th className="py-3 px-4 text-left text-sm font-medium text-gray-600">
-                        Vulnerability
-                      </th>
-                      <th className="py-3 px-4 text-left text-sm font-medium text-gray-600">
-                        Severity
-                      </th>
-                      <th className="py-3 px-4 text-left text-sm font-medium text-gray-600">
-                        Impact
-                      </th>
-                      <th className="py-3 px-4 text-left text-sm font-medium text-gray-600">
-                        Recommendations
-                      </th>
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b border-gray-200">
+                    <th className="py-3 px-4 text-left text-sm font-medium text-gray-600">
+                      Vulnerability
+                    </th>
+                    <th className="py-3 px-4 text-left text-sm font-medium text-gray-600">
+                      Severity
+                    </th>
+                    <th className="py-3 px-4 text-left text-sm font-medium text-gray-600">
+                      Impact
+                    </th>
+                    <th className="py-3 px-4 text-left text-sm font-medium text-gray-600">
+                      Recommendations
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {vulnerabilities.map((item, index) => (
+                    <tr 
+                      key={index}
+                      className={`border-b border-gray-100 last:border-0
+                        ${index % 2 === 0 ? 'bg-purple-50' : 'bg-white'}`}
+                    >
+                      <td className="py-3 px-4 text-sm text-gray-800">{item.vulnerability}</td>
+                      <td className="py-3 px-4 text-sm text-gray-800">{item.severity}</td>
+                      <td className="py-3 px-4 text-sm text-gray-800">{item.impact}</td>
+                      <td className="py-3 px-4 text-sm text-gray-800">{item.recommendations}</td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {vulnerabilities.map((item, index) => (
-                      <tr 
-                        key={index}
-                        className={`
-                          border-b border-gray-100 last:border-0
-                          ${index % 2 === 0 ? 'bg-purple-50' : 'bg-white'}
-                        `}
-                      >
-                        <td className="py-3 px-4 text-sm text-gray-800">{item.vulnerability}</td>
-                        <td className="py-3 px-4 text-sm text-gray-800">{item.severity}</td>
-                        <td className="py-3 px-4 text-sm text-gray-800">{item.impact}</td>
-                        <td className="py-3 px-4 text-sm text-gray-800">{item.recommendations}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            ) : (
-              <p className="text-gray-600">No vulnerabilities found.</p>
-            )}
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
