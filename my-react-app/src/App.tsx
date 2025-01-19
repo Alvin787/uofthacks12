@@ -71,10 +71,10 @@ function FlaskMessages() {
       <div className="results w-full mt-6">
         {loading && <p className="text-center">Loading...</p>}
         {error && <p className="text-center text-red-500">Error: {error}</p>}
-        {!loading && !error && vulnerabilityData && (
+        {!loading && !error && vulnerabilityData && vulnerabilityData[0] && (
           <ScannerResults data={vulnerabilityData} />
         )}
-        {!loading && !error && aiAdvice && (
+        {!loading && !error && vulnerabilityData && vulnerabilityData[0] && aiAdvice && (
           <AlternativePackagesTable alternatives={aiAdvice} />
         )}
       </div>
