@@ -53,7 +53,7 @@ const PackageTextBox: React.FC<HeaderSectionProps> = ({ onScan }) => {
             placeholder="Package name"
             className="w-full sm:flex-1 px-4 py-2 rounded-lg border border-gray-300 
                      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
-                     transition-all duration-200"
+                     transition-all duration-200 shadow-2xl p-8"
             value={packageName}
             onChange={(e) => setPackageName(e.target.value)}
             onKeyPress={handleKeyPress}
@@ -63,7 +63,7 @@ const PackageTextBox: React.FC<HeaderSectionProps> = ({ onScan }) => {
             type="text"
             className="w-full sm:flex-1 px-4 py-2 rounded-lg border border-gray-300 
                      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
-                     transition-all duration-200"
+                     transition-all duration-200 shadow-2xl p-8"
             value={ecosystem}
             onChange={(e) => setEcosystem(e.target.value)}
             placeholder="Environment (ex. PIP, NPM)"
@@ -73,7 +73,7 @@ const PackageTextBox: React.FC<HeaderSectionProps> = ({ onScan }) => {
             className="w-full sm:w-auto px-6 py-2 bg-blue-600 text-white rounded-lg
                      hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 
                      focus:ring-offset-2 transition-all duration-200 disabled:opacity-50
-                     disabled:cursor-not-allowed"
+                     disabled:cursor-not-allowed shadow-2xl p-8"
             disabled={!packageName.trim()}
           >
             Scan now

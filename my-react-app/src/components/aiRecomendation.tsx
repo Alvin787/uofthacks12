@@ -17,7 +17,7 @@ const AlternativePackagesTable: React.FC<AlternativePackagesTableProps> = ({
   });
 
   return (
-    <div className="w-full mt-6 text-black">
+    <div className="w-full mt-6 text-black bg-white rounded-lg shadow-md p-6">
       <table className="table-auto border-collapse w-full text-left">
         <caption className="text-left text-xl font-bold mb-4">
         ⚡ AI Recommended Alternative Packages ⚡
@@ -29,9 +29,14 @@ const AlternativePackagesTable: React.FC<AlternativePackagesTableProps> = ({
         </thead>
         <tbody>
           {rows.map((packageName, index) => (
-            <tr key={index}>
-              <td className="border px-4 py-2">{packageName}</td>
-            </tr>
+            <tr
+            key={index}
+            className={`border px-4 py-2 ${
+              index % 2 === 0 ? "bg-purple-50" : "bg-white"
+            }`}
+          >
+            <td className="border px-4 py-2">{packageName}</td>
+          </tr>
           ))}
         </tbody>
       </table>

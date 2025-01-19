@@ -45,3 +45,40 @@
   color: #000000; /* Change this to your desired color */
 }
 
+.container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Create the gradient background */
+.container::before {
+  content: '';
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;  /* Extended to full viewport width */
+  height: 100vh; /* Extended to full viewport height */
+  background: radial-gradient(
+    circle at bottom left,
+    rgba(79, 70, 229, 0.5) 0%,    /* Increased opacity */
+    rgba(79, 70, 229, 0.4) 10%,    
+    rgba(79, 70, 229, 0.3) 20%,   
+    rgba(79, 70, 229, 0.2) 30%,    
+    rgba(79, 70, 229, 0.14) 40%,   
+    rgba(79, 70, 229, 0.1) 50%,   
+    rgba(79, 70, 229, 0.06) 60%,   
+    rgba(79, 70, 229, 0.04) 70%,   
+    rgba(79, 70, 229, 0.02) 80%,   
+    rgba(79, 70, 229, 0.01) 90%,  /* Very subtle transition near the end */
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Ensure all your content remains above the gradient */
+.results {
+  position: relative;
+  z-index: 1;
+}
+
