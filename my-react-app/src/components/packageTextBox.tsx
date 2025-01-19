@@ -25,20 +25,22 @@ const PackageTextBox: React.FC<HeaderSectionProps> = ({ onScan }) => {
     <div className="w-full max-w-4xl mx-auto bg-white px-6 py-8">
       {/* Title Section */}
       <div className="text-center space-y-4 mb-12">
-        <img src={logo} alt="Logo" className="h-16 w-16 mr-4" />
-        <div>
-          <h1 className="text-4xl font-bold text-gray-900 tracking-tight text-left">
-            WELCOME TO
-          </h1>
-          <h2 className="text-6xl font-bold text-gray-900 tracking-tight text-left pb-8">
-            <span className="text-purple-600">VUL</span>SCANNER
-          </h2>
+        <div className="flex items-center justify-center min-w-screen mr-20">
+          <img src={logo} alt="Logo" className="h-16 w-16 mr-4" />
+          <div>
+            <h1 className="text-4xl font-bold text-gray-900 tracking-tight ">
+              WELCOME TO
+            </h1>
+            <h2 className="text-6xl font-bold text-gray-900 tracking-tight pb-8">
+              <span className="text-purple-600">VUL</span>SCANNER
+            </h2>
+          </div>
         </div>
         <p className="text-lg font-bold text-blue-600 mt-4">
-          Your APIs. Your Security. Your Peace of Mind.
+          Your Applications. Your Security. Your Peace of Mind.
         </p>
         <p className="text-gray-600 mt-4 max-w-2xl mx-auto">
-          Not sure if your APIs are safe? Check your API security now with VULSCANNER,
+          Not sure if your packages are safe? Scan for vulnerabilities NOW with VULSCANNER,
           where safety meets simplicity
         </p>
       </div>
@@ -56,6 +58,16 @@ const PackageTextBox: React.FC<HeaderSectionProps> = ({ onScan }) => {
             onChange={(e) => setPackageName(e.target.value)}
             onKeyPress={handleKeyPress}
           />
+          <input
+            id="additionalInput"
+            type="text"
+            className="w-full sm:flex-1 px-4 py-2 rounded-lg border border-gray-300 
+                     focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+                     transition-all duration-200"
+            value={ecosystem}
+            onChange={(e) => setEcosystem(e.target.value)}
+            placeholder="Enter your package's environment (ex. PIP, NPM)"
+          />
           <button
             onClick={handleScan}
             className="w-full sm:w-auto px-6 py-2 bg-blue-600 text-white rounded-lg
@@ -66,18 +78,6 @@ const PackageTextBox: React.FC<HeaderSectionProps> = ({ onScan }) => {
           >
             Scan now
           </button>
-        </div>
-        <div className="-mt-3 flex justify-start">
-          <input
-            id="additionalInput"
-            type="text"
-            className="w-80 border border-gray-300 p-1 rounded text-sm border-gray-300 
-                     focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
-                     transition-all duration-200"
-            value={ecosystem}
-            onChange={(e) => setEcosystem(e.target.value)}
-            placeholder="Enter your package's environment (ex. PIP, NPM)"
-          />
         </div>
 
         {/* Free Badge */}
