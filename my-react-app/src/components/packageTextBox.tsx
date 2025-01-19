@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import logo from '../assets/logo.png';
 
 interface HeaderSectionProps {
   onScan: (packageName: string) => void;
@@ -23,12 +24,15 @@ const PackageTextBox: React.FC<HeaderSectionProps> = ({ onScan }) => {
     <div className="w-full max-w-4xl mx-auto bg-white px-6 py-8">
       {/* Title Section */}
       <div className="text-center space-y-4 mb-12">
-        <h1 className="text-4xl font-bold text-gray-900 tracking-tight text-left">
-          WELCOME TO
-        </h1>
-        <h2 className="text-6xl font-bold text-gray-900 tracking-tight text-left pb-4">
-          <span className="text-red-600">VUL</span>SCANNER
-        </h2>
+        <img src={logo} alt="Logo" className="h-16 w-16 mr-4" />
+        <div>
+          <h1 className="text-4xl font-bold text-gray-900 tracking-tight text-left">
+            WELCOME TO
+          </h1>
+          <h2 className="text-6xl font-bold text-gray-900 tracking-tight text-left pb-8">
+            <span className="text-purple-600">VUL</span>SCANNER
+          </h2>
+        </div>
         <p className="text-lg font-bold text-blue-600 mt-4">
           Your APIs. Your Security. Your Peace of Mind.
         </p>

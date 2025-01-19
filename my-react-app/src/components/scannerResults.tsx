@@ -44,7 +44,7 @@ const ScannerResults: React.FC<ScannerResultsProps> = ({ data }) => {
       value: ((severityCounts['HIGH'] || 0) / total) * 100
     },
     {
-      label: 'Medium',
+      label: 'Moderate',
       color: '#B197FC',
       value: ((severityCounts['MODERATE'] || 0) / total) * 100
     },

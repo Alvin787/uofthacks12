@@ -5,9 +5,9 @@ import "./index.css";
 import "./App.css"
 import PackageTextBox from "./components/packageTextBox";
 import ScannerResults from "./components/scannerResults";
-import AlternativesTable from "./components/aiRecomendation";
-
+import AlternativePackagesTable from "./components/aiRecomendation";
 import OpenAI from "openai";
+
 
 function FlaskMessages() {
   const [vulnerabilityData, setVulnerabilityData] = useState(null);
@@ -21,7 +21,7 @@ function FlaskMessages() {
     setError(null);
 
     // Build the dynamic API URL
-    const url = `http://127.0.0.1:5000/vulnerabilities/${packageName}/NPM`;
+    const url = `http://127.0.0.1:5000/vulnerabilities/${packageName}/PIP`;
 
     console.log(url);
 
@@ -64,14 +64,14 @@ function FlaskMessages() {
   return (
     <div className="container flex flex-col items-center justify-center min-h-screen p-4">
       <PackageTextBox onScan={handleSubmit} />
-      <div className="results w-full  mt-6">
+      <div className="results w-full mt-6">
         {loading && <p className="text-center">Loading...</p>}
         {error && <p className="text-center text-red-500">Error: {error}</p>}
         {!loading && !error && vulnerabilityData && (
-          <div>
           <ScannerResults data={vulnerabilityData} />
-          <AlternativesTable alternatives={aiAdvice} />
-          </div>
+        )}
+        {!loading && !error && aiAdvice && (
+          <AlternativePackagesTable alternatives={aiAdvice} />
         )}
       </div>
     </div>
