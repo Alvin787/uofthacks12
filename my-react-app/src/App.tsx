@@ -8,6 +8,10 @@ import ScannerResults from "./components/scannerResults";
 import AlternativePackagesTable from "./components/aiRecomendation";
 import OpenAI from "openai";
 
+const apiUrl = import.meta.env.VITE_OPENAI_API_KEY;
+// console.log("api url: ", apiUrl);
+const openai = new OpenAI({ apiKey: apiUrl, dangerouslyAllowBrowser: true});
+
 function FlaskMessages() {
   const [vulnerabilityData, setVulnerabilityData] = useState(null);
   const [loading, setLoading] = useState<boolean>(false);
