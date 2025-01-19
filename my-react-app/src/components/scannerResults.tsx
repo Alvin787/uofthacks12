@@ -74,7 +74,7 @@ const ScannerResults: React.FC<ScannerResultsProps> = ({ data }) => {
 
   return (
     <div className="w-full max-w-4xl mx-auto">
-      <h2 className="text-2xl font-bold text-navy-900 mb-8">Scanner Result</h2>
+      <h2 className="text-2xl font-bold text-purple-900 mb-8">Scanner Result</h2>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 ">
         {/* Severity Levels Chart */}
