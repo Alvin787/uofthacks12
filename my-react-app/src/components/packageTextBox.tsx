@@ -50,7 +50,7 @@ const PackageTextBox: React.FC<HeaderSectionProps> = ({ onScan }) => {
         <div className="flex flex-col sm:flex-row items-center gap-4 mb-4">
           <input
             type="text"
-            placeholder="Enter package name"
+            placeholder="Package name"
             className="w-full sm:flex-1 px-4 py-2 rounded-lg border border-gray-300 
                      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
                      transition-all duration-200"
@@ -66,7 +66,7 @@ const PackageTextBox: React.FC<HeaderSectionProps> = ({ onScan }) => {
                      transition-all duration-200"
             value={ecosystem}
             onChange={(e) => setEcosystem(e.target.value)}
-            placeholder="Enter your package's environment (ex. PIP, NPM)"
+            placeholder="Environment (ex. PIP, NPM)"
           />
           <button
             onClick={handleScan}
