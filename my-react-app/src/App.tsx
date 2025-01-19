@@ -25,7 +25,7 @@ function FlaskMessages() {
     setError(null);
 
     // Build the dynamic API URL
-    const url = `http://127.0.0.1:5000/vulnerabilities/${packageName}/${environmentName}`;
+    const url = `https://vulscanner.onrender.com/vulnerabilities/${packageName}/${environmentName}`;
 
     console.log(url);
 
