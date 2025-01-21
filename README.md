@@ -66,6 +66,11 @@ UofThacks12 submission URL: https://dorahacks.io/buidl/21690
     npm install
     ```
 
+3. Create a .environment file in the my-react-app directory and add your OpenAI API token:
+   ```
+   VITE_OPENAI_API_KEY=your_key_here
+   ```
+
 3. Start the development server:
     ```
     npm run dev
