@@ -36,7 +36,7 @@ def fetch_vulnerabilities(package_name, ecosystem):
     """
     query = f"""
     {{
-      securityVulnerabilities(first: 10, ecosystem: {ecosystem}, package: "{package_name}") {{
+      securityVulnerabilities(first: 10, ecosystem: {ecosystem.upper()}, package: "{package_name}") {{
         edges {{
           node {{
             severity
