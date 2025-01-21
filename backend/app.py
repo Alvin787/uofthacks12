@@ -90,7 +90,7 @@ def vulnerabilities():
         return jsonify({"error": "Package name is required."}), 400
 
     try:
-        vulnerabilities = fetch_vulnerabilities(package_name, ecosystem)
+        vulnerabilities = fetch_vulnerabilities(package_name, ecosystem.upper())
         return jsonify(vulnerabilities), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
