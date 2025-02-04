@@ -50,7 +50,7 @@ const PackageTextBox: React.FC<HeaderSectionProps> = ({ onScan }) => {
         <div className="flex flex-col sm:flex-row items-center gap-4 mb-4">
           <input
             type="text"
-            placeholder="Package name"
+            placeholder="Package name (ex. Django, React)"
             className="w-full sm:flex-1 px-4 py-2 rounded-lg border border-gray-300 
                      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
                      transition-all duration-200 shadow-2xl p-8"
